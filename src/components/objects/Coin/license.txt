@@ -1,0 +1,11 @@
+Model Information:
+* title:	Gem
+* source:	https://sketchfab.com/3d-models/gem-618236229c4c4e4a97ff0fe87f0671a2
+* author:	seeriouslee (https://sketchfab.com/seeriouslee)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Gem" (https://sketchfab.com/3d-models/gem-618236229c4c4e4a97ff0fe87f0671a2) by seeriouslee (https://sketchfab.com/seeriouslee) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
