@@ -105,10 +105,10 @@ class Ball extends Group {
     // TweenJS guide: http://learningthreejs.com/blog/2011/08/17/tweenjs-for-smooth-animation/
     // Possible easings: http://sole.github.io/tween.js/examples/03_graphs.html
     const jumpUp = new TWEEN.Tween(this.position)
-      .to({ y: this.position.y + 3 }, 325)
+      .to({ y: this.position.y + 3 }, 310)
       .easing(TWEEN.Easing.Quadratic.Out);
     const fallDown = new TWEEN.Tween(this.position)
-      .to({ y: this.yPos }, 325)
+      .to({ y: this.yPos }, 310)
       .easing(TWEEN.Easing.Quadratic.In);
 
     // Fall down after jumping up
@@ -119,20 +119,28 @@ class Ball extends Group {
   }
 
   update(timeStamp) {
+    if (!this.isLeft && !this.isRight) {
+      this.model.rotation.x -= this.rotationVel;
+    } else {
+      this.model.rotation.x = 0;
+    }
+
     if (this.isLeft) {
       this.left();
 
       // rotate the ball a bit
       //   this.rotation.z += this.rotationVel;
       this.model.rotation.z += this.rotationVel;
-    }
-    if (this.isRight) {
+    } else if (this.isRight) {
       this.right();
 
       // rotate the ball a bit
       this.model.rotation.z -= this.rotationVel;
       //   this.rotation.z -= this.rotationVel;
     }
+    // } else if (!this.isLeft && !this.isRight) {
+    //   this.model.rotation.x -= this.rotationVel;
+    // }
 
     if (this.isFall) {
       if (this.position.y < -9.9) {
