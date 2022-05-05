@@ -21,6 +21,8 @@ class PathTest extends Scene {
     this.state = {
       // gui: new Dat.GUI(), // Create GUI for scene
       //   movementSpeed: 0.1, // Movement speed
+      waitingTime: 300,
+      updated: false,
       updateList: [],
       sinceLastCollision: 0,
       offTrack: false,
@@ -148,6 +150,17 @@ class PathTest extends Scene {
 
   update(timeStamp) {
     const { updateList } = this.state;
+
+    if (this.state.waitingTime > 0) {
+      this.state.waitingTime--;
+      // console.log(this.state.waitingTime);
+      return;
+    }
+
+    if (this.state.waitingTime === 0 && !this.state.updated) {
+      // console.log(this.road.state);
+      this.road.state.started = true;
+    }
 
     if (this.state.gameStarted && !this.state.paused) {
       // Call update for each object in the updateList

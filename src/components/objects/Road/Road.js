@@ -12,11 +12,14 @@ class Road extends Group {
     this.initialized = false;
 
     // pathing variables
-    this.movementSpeed = 0.075;
-    this.timeDiff = 18.5;
-    this.dirChangeFactor = 1.4;
+    // this.timeDiff = 18.5;
+    this.dirChangeFactor = 1.38;
+    // this.movementSpeed = 0.075;
+    this.movementSpeed = 0.1175;
+    this.timeDiff = 11;
 
     this.state = {
+      started: false,
       cameraPosition: parent.camera.position,
       time: 0,
       lastBlock: 0,
@@ -57,6 +60,10 @@ class Road extends Group {
     this.blockCollisions = [...this.blockCollisions, this.initBlock.bb];
   }
 
+  // updateMovementSpeed() {
+  //   this.movementSpeed = 0.2; // old: 0.075
+  // }
+
   addBlock() {
     let beat = this.parent.beat;
     let type = this.random();
@@ -65,13 +72,13 @@ class Road extends Group {
     this.state.blockPos.x += this.dirChangeFactor * this.state.direction;
 
     // changing direction
-    if (beat && type >= 6 && !this.state.justJumped) {
+    if (beat && type >= 5 && !this.state.justJumped) {
       this.state.direction *= -1;
       this.parent.removeBeat();
     }
 
     // jumping
-    if (beat && type < 6 && !this.state.justJumped) {
+    if (beat && type < 5 && !this.state.justJumped) {
       this.state.justJumped = true;
       this.parent.removeBeat();
       return;
@@ -103,7 +110,7 @@ class Road extends Group {
     }
   }
 
-  addLand(){
+  addLand() {
     // // //adding new land
     // const land = new Land(this);
     // // this.addlands.push(land);
@@ -132,18 +139,18 @@ class Road extends Group {
     }
 
     for (let i = 0; i < this.lands.length; i++) {
-      console.log(this.lands.length);
+      // console.log(this.lands.length);
       const curland = this.lands[i];
-    //   if (curland.position.z > this.state.cameraPosition.z){
-    //     this.state.landRemoved = true;
-    //   }
+      //   if (curland.position.z > this.state.cameraPosition.z){
+      //     this.state.landRemoved = true;
+      //   }
 
       if (curland.position.z > this.state.cameraPosition.z + 70) {
         // removing offscreen block
         // this.lands.shift();
         // this.remove(curland);
         // this.state.landRemoved = true;
-        curland.position.z = this.state.cameraPosition.z-270;
+        curland.position.z = this.state.cameraPosition.z - 270;
       } else {
         curland.updatePosition();
       }
@@ -182,6 +189,8 @@ class Road extends Group {
   update(timeStamp) {
     this.state.time++;
 
+    if (!this.state.started) return;
+
     if (!this.initialized) {
       this.addBlock();
       this.initialized = true;
@@ -189,11 +198,11 @@ class Road extends Group {
 
     if (this.state.time - this.state.lastBlock > this.timeDiff) {
       this.addBlock();
-      
+
       this.state.lastBlock = this.state.time;
     }
 
-    if (this.state.time - this.state.lastLand > this.timeDiff * 100){
+    if (this.state.time - this.state.lastLand > this.timeDiff * 100) {
       // this.state.landRemoved = false;
       this.addLand();
       this.state.lastLand = this.state.time;

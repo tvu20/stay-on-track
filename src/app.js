@@ -81,11 +81,14 @@ scoreDiv.innerHTML = "Score: " + score;
 let introContainer = document.getElementById("intro-container");
 let endScreen = document.getElementById("ending-screen");
 let resetButton = document.getElementById("reset-btn");
+let loadingContainer = document.getElementById("loading-screen");
+let loaderHidden = false;
 
 function beginGame() {
   introContainer.style.display = "none";
+  loadingContainer.style.display = "flex";
 
-  audioElement.play();
+  // audioElement.play();
   scene.state.gameStarted = true;
   scene.state.paused = false;
   gameStarted = true;
@@ -128,11 +131,11 @@ const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioContext = new AudioContext();
 const analyser = audioContext.createAnalyser();
 
-// // delay node
-// const delayNode = new DelayNode(audioContext, {
-//   delayTime: 0.5,
-//   maxDelayTime: 0.5,
-// });
+// delay node
+const delayNode = new DelayNode(audioContext, {
+  delayTime: 1,
+  maxDelayTime: 1,
+});
 
 // uploading audio
 var file = document.getElementById("fileInput");
@@ -140,7 +143,9 @@ var audioElement = document.getElementById("audio");
 audioElement.src = soundFile; // setting as default
 const track = audioContext.createMediaElementSource(audioElement);
 track.connect(analyser);
-analyser.connect(audioContext.destination);
+analyser.connect(delayNode);
+delayNode.connect(audioContext.destination);
+// analyser.connect(audioContext.destination);
 
 let prevInAudio;
 let src;
@@ -173,12 +178,12 @@ playButton.addEventListener(
     // play or pause track depending on state
     if (!currentlyPlaying) {
       beginGame();
-      audioElement.play();
-      currentlyPlaying = true;
+      // audioElement.play();
+      // currentlyPlaying = true;
     } else if (currentlyPlaying) {
       pauseGame();
-      audioElement.pause();
-      currentlyPlaying = false;
+      // audioElement.pause();
+      // currentlyPlaying = false;
     }
   },
   false
@@ -202,6 +207,14 @@ const onAnimationFrameHandler = (timeStamp) => {
   renderer.render(scene, camera);
   scene.update && scene.update(timeStamp);
   window.requestAnimationFrame(onAnimationFrameHandler);
+
+  // removing loading screen
+  if (scene.state.waitingTime === 0 && !loaderHidden) {
+    loadingContainer.style.display = "none";
+    loaderHidden = true;
+    audioElement.play();
+    currentlyPlaying = true;
+  }
 
   // move to game over screen
   if (scene.state.gameEnded == true) {
