@@ -24,7 +24,7 @@ class GameOver extends Scene {
     // Init state
     this.state = {
       gui: new Dat.GUI(), // Create GUI for scene
-      rotationSpeed: 0,
+      //rotationSpeed: 0,
       updateList: [],
     };
 
@@ -32,16 +32,16 @@ class GameOver extends Scene {
     this.background = new Color(0x7ec0ee);
 
     // Add meshes to scene
-    const land = new Land();
-    const flower = new Flower(this);
+    //const land = new Land();
+    //const flower = new Flower(this);
     const lights = new BasicLights();
-    this.add(land, flower, lights);
-    this.flower = flower;
+    this.add(lights);
+    //this.flower = flower;
 
     const position = new Vector3(
-      flower.position.x - 7,
-      flower.position.y,
-      flower.position.z
+       - 7,
+      0,
+      0
     );
 
     const gO = new GameOverText(this, position);
@@ -56,13 +56,13 @@ class GameOver extends Scene {
   }
 
   update(timeStamp) {
-    const { rotationSpeed, updateList } = this.state;
+    const {updateList } = this.state;
     //this.rotation.y = (rotationSpeed * timeStamp) / 10000;
 
     // Call update for each object in the updateList
     for (const obj of updateList) {
       //console.log(obj);
-      this.flower.update(timeStamp);
+      //this.flower.update(timeStamp);
     }
   }
 }
