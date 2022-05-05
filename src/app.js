@@ -209,6 +209,8 @@ const onAnimationFrameHandler = (timeStamp) => {
   scene.update && scene.update(timeStamp);
   window.requestAnimationFrame(onAnimationFrameHandler);
 
+  // console.log(scene.state.waitingTime);
+
   // removing loading screen
   if (scene.state.waitingTime === 0 && !loaderHidden) {
     loadingContainer.style.display = "none";
