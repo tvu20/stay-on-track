@@ -1,0 +1,11 @@
+Model Information:
+* title:	Low Poly Nature
+* source:	https://sketchfab.com/3d-models/low-poly-nature-65f775c78631409990beaa8eb32b3909
+* author:	hardartcore (https://sketchfab.com/hardartcore)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Low Poly Nature" (https://sketchfab.com/3d-models/low-poly-nature-65f775c78631409990beaa8eb32b3909) by hardartcore (https://sketchfab.com/hardartcore) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

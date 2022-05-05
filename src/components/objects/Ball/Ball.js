@@ -41,7 +41,6 @@ class Ball extends Group {
     this.name = "ball";
 
     this.model;
-
     loader.load(MODEL, (gltf) => {
       this.model = gltf.scene;
       this.add(gltf.scene);
