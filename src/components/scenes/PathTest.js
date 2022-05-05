@@ -182,13 +182,7 @@ class PathTest extends Scene {
       if (this.state.offTrack) {
         this.state.sinceFalling++;
         if (this.state.sinceFalling > 80) {
-          // // testing yasmine's code
-          // this.state.gameEnded = true;
-          // // console.log(this.state.gameEnded);
-
-          // // this.state.offTrack = false;
-          // // this.state.paused = true;
-          // // this.state.gameStarted = false;
+          this.state.gameEnded = true;
         }
       }
     }

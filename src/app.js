@@ -219,6 +219,7 @@ const onAnimationFrameHandler = (timeStamp) => {
 
   // move to game over screen
   if (scene.state.gameEnded == true) {
+    console.log("ended");
     var gOScene = new GameOver();
     scene = gOScene;
     camera.position.set(0, 0, 40);
