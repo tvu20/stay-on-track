@@ -17,8 +17,9 @@ class Ball extends Group {
     // Call parent Group() constructor
     super();
 
-    this.movementVel = 0.0725;
-    this.rotationVel = 0.05;
+    this.movementVel = 0.1175;
+    // this.movementVel = 0.0725;
+    this.rotationVel = 0.1;
     this.fallVel = 0.145;
     this.fallRot = 0.1;
     this.yPos = 2.5;
@@ -41,7 +42,6 @@ class Ball extends Group {
     this.name = "ball";
 
     this.model;
-
     loader.load(MODEL, (gltf) => {
       this.model = gltf.scene;
       this.add(gltf.scene);
@@ -119,20 +119,28 @@ class Ball extends Group {
   }
 
   update(timeStamp) {
+    if (!this.isLeft && !this.isRight) {
+      this.model.rotation.x -= this.rotationVel;
+    } else {
+      this.model.rotation.x = 0;
+    }
+
     if (this.isLeft) {
       this.left();
 
       // rotate the ball a bit
       //   this.rotation.z += this.rotationVel;
       this.model.rotation.z += this.rotationVel;
-    }
-    if (this.isRight) {
+    } else if (this.isRight) {
       this.right();
 
       // rotate the ball a bit
       this.model.rotation.z -= this.rotationVel;
       //   this.rotation.z -= this.rotationVel;
     }
+    // } else if (!this.isLeft && !this.isRight) {
+    //   this.model.rotation.x -= this.rotationVel;
+    // }
 
     if (this.isFall) {
       if (this.position.y < -9.9) {
