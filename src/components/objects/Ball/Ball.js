@@ -105,10 +105,10 @@ class Ball extends Group {
     // TweenJS guide: http://learningthreejs.com/blog/2011/08/17/tweenjs-for-smooth-animation/
     // Possible easings: http://sole.github.io/tween.js/examples/03_graphs.html
     const jumpUp = new TWEEN.Tween(this.position)
-      .to({ y: this.position.y + 3 }, 310)
+      .to({ y: this.position.y + 3 }, 300)
       .easing(TWEEN.Easing.Quadratic.Out);
     const fallDown = new TWEEN.Tween(this.position)
-      .to({ y: this.yPos }, 310)
+      .to({ y: this.yPos }, 300)
       .easing(TWEEN.Easing.Quadratic.In);
 
     // Fall down after jumping up

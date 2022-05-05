@@ -11,6 +11,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { PathTest, GameOver } from "scenes";
 import { AudioData } from "./components/audio";
 import soundFile from "./sevenrings.mp3";
+import dingFile from "./ding.mp3";
 // import "./app.css";
 // import soundFile from "./sevenrings.mp3";
 
@@ -147,11 +148,6 @@ analyser.connect(delayNode);
 delayNode.connect(audioContext.destination);
 // analyser.connect(audioContext.destination);
 
-let prevInAudio;
-let src;
-// let context;
-// let analyser;
-
 file.onchange = (event) => {
   uploadAudio(file, true);
 };
@@ -198,6 +194,11 @@ audioElement.addEventListener(
   false
 );
 
+// ding noise
+
+const ding = new Audio(dingFile);
+ding.load();
+
 // --------------------
 // RENDER HANDLER
 // --------------------
@@ -230,9 +231,13 @@ const onAnimationFrameHandler = (timeStamp) => {
   }
 
   // scoring
-  if (scene.state.score != score) {
+  if (scene.state.score != score && !gameOver) {
     score = scene.state.score;
     scoreDiv.innerHTML = "Score: " + score;
+
+    // ding noise
+    let dingClone = ding.cloneNode();
+    dingClone.play();
   }
 
   // analyser stuff
