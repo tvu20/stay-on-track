@@ -1,5 +1,6 @@
 import { Group, Vector3 } from "three";
 import Block from "../Block/Block";
+import Cloud from "../Cloud/Cloud";
 import Coin from "../Coin/Coin";
 import { InitBlock } from "../InitBlock";
 import Land from "../Land/Land";
@@ -36,6 +37,7 @@ class Road extends Group {
     this.coinCollisions = [];
     this.lands = [];
     this.addlands = [];
+    this.clouds = [];
 
     // Add self to parent's update list
     parent.addToUpdateList(this);
@@ -55,6 +57,14 @@ class Road extends Group {
     this.addlands.push(land2);
     this.lands.push(land2);
     this.add(land2);
+
+    const cloud = new Cloud(this, this.state.cameraPosition.z-15, 10);
+    this.clouds.push(cloud);
+    this.add(cloud);
+
+    const cloud2 = new Cloud(this, this.state.cameraPosition.z-30, -15);
+    this.clouds.push(cloud2);
+    this.add(cloud2);
 
     // adding to the collision array
     this.blockCollisions = [...this.blockCollisions, this.initBlock.bb];
@@ -155,6 +165,18 @@ class Road extends Group {
         curland.updatePosition();
       }
     }
+
+    for (let i = 0; i < this.clouds.length; i++){
+      
+      const curcloud = this.clouds[i];
+      if (curcloud.position.z > this.state.cameraPosition.z + 3.5){
+        curcloud.position.z = this.state.cameraPosition.z - 25;
+      }
+      curcloud.updatePosition();
+    }
+
+    
+
 
     // //naive move land
     // if(this.land.position.z > this.state.cameraPosition.z+10){
